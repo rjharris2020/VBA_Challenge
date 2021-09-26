@@ -9,11 +9,11 @@ Sub WallStreet():
 
     Dim lastRow As Long
     
-    Dim openPrice As Double
-    openPrice = 0
+    Dim begOpenPrice As Double
+    begOpenPrice = 0
     
-    Dim closePrice As Double
-    closePrice = 0
+    Dim endClosePrice As Double
+    endClosePrice = 0
     
     Dim yearlyPriceChange As Double
     yearlyPriceChange = 0
@@ -47,26 +47,12 @@ Sub WallStreet():
             tickerSymbol = Range("A" & Row).Value
             
             ' calculate
-            closePrice = Range("F" & Row).Value
-            yearlyPriceChange = closePrice - openPrice
+            endClosePrice = Range("F" & Row).Value
+            yearlyPriceChange = endClosePrice - begOpenPrice
             
             ' set the condition for zero
-            If openPrice <> 0 Then
-                percentPriceChange = (yearlyPriceChange / openPrice) * 100
-                
-            End If
-            
-            ' next opening price
-            openPrice = Cells(Row + 1, 3).Value
-            
-            ' calulations for percent change
-            If (percentPriceChange > maxPercent) Then
-                maxPercent = percentPriceChange
-                maxTicker = tickerSymbol
-                
-            ElseIf percentPriceChange < minPercent Then
-                minPercent = percentPriceChange
-                minTicker = tickerSymbol
+            If begOpenPrice <> 0 Then
+                percentPriceChange = (yearlyPriceChange / begOpenPrice) * 100
                 
             End If
             
@@ -97,6 +83,20 @@ Sub WallStreet():
             
             ' once the summary table is populated, then add one to the summary row count
             summaryTableRow = summaryTableRow + 1
+            
+            ' next opening price
+            begOpenPrice = Cells(Row + 1, 3).Value
+            
+              ' calulations for percent change
+            If (percentPriceChange > maxPercent) Then
+                maxPercent = percentPriceChange
+                maxTicker = tickerSymbol
+                
+            ElseIf percentPriceChange < minPercent Then
+                minPercent = percentPriceChange
+                minTicker = tickerSymbol
+                
+            End If
             
             'then reset the volume total to 0
             volumeTotal = 0
