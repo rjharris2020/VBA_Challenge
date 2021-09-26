@@ -1,5 +1,5 @@
 # VBA_Challenge
-An assignment used to showcase my visual basics skills in Excel.
+An assignment using VBA scripting to analyze real stock market data and showcase my visual basics skills in Excel.
 
 ## What am I trying to find using the yearly stock martket data?
 Create a script that will loop through all the stocks for one year and output the following information:
